@@ -1,0 +1,46 @@
+function hashFunction(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash += name.charCodeAt(i);
+  }
+  return hash % 5;
+}
+
+let hashedTable = [null, null, null, null, null];
+
+let customerNames = ["Elaine", "Althea", "Angelo", "Lito", "Engelbert"];
+for (let name of customerNames) {
+  let index = hashFunction(name);
+  hashedTable[index] = name;
+}
+
+function displayHashedTable() {
+  console.log("Current Hashed Table:");
+  for (let i = 0; i < hashedTable.length; i++) {
+    console.log(`${i + 1}. ${hashedTable[i]}`);
+  }
+}
+
+function serviceCustomer() {
+  displayHashedTable();
+
+  let customerNumber = prompt("Enter the number of the customer to be serviced:");
+
+  if (customerNumber >= 1 && customerNumber <= hashedTable.length) {
+    let index = customerNumber - 1;
+    if (hashedTable[index]) {
+      console.log(`Servicing Customer ${customerNumber}: ${hashedTable[index]}`);
+      hashedTable[index] = null;
+      console.log("Customer served.");
+    } else {
+      alert("No customer found at that index.");
+    }
+  } else {
+    alert("Invalid customer number.");
+  }
+
+  displayHashedTable();
+}
+
+displayHashedTable();
+serviceCustomer();
